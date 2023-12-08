@@ -24,19 +24,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {NavigationContainer} from '@react-navigation/native';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ecommerce from './src/screens/Ecommerce/ecommerce';
+import Ecommerce from './src/screens/Ecommerce/ecommerce';
 import profile from './src/screens/Profile/profile';
 
 const Stack = createNativeStackNavigator();
-
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="APMC_screen" component={APMC_screen} />
-    </Stack.Navigator>
-  );
-}
 
 // import {
 //   Colors,
@@ -82,6 +73,7 @@ function AppTabsNavigation(): JSX.Element {
   return (
     <Tab.Navigator
       activeColor="#3c9764"
+      inactiveColor="#000"
       barStyle={{
         backgroundColor: '#ffffff',
         borderRadius: 10,
@@ -92,7 +84,7 @@ function AppTabsNavigation(): JSX.Element {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" size={26} />
+            <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
       />
@@ -109,7 +101,7 @@ function AppTabsNavigation(): JSX.Element {
       />
       <Tab.Screen
         name="E-commerce"
-        component={ecommerce}
+        component={Ecommerce}
         options={{
           title: 'E-commerce',
           tabBarLabel: 'E-commerce',
@@ -119,10 +111,10 @@ function AppTabsNavigation(): JSX.Element {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name="Gov Schemes"
         component={profile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Gov Schemes',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="account" size={26} />
           ),

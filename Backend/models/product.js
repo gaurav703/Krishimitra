@@ -18,6 +18,29 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
+    cost: {
+        type: Number,
+        default: 0,
+        required: true,
+    },
+    rating: {
+        type: String,
+        required: false,
+    },
+    category: {
+        type: String,
+        required: false,
+        default: '',
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now,
+    },
+    file: {
+        filename: String,
+        data: Buffer,
+        contentType: String,
+    },
 })
 
 exports.Product = mongoose.model('Product', productSchema)

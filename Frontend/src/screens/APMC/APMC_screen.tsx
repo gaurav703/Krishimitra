@@ -106,7 +106,7 @@ export default function APMC_screen() {
             fontWeight: '600',
             color: '#fff',
             lineHeight: 25,
-            paddingVertical: 10,
+            paddingVertical: 20,
             paddingLeft: 30,
           }}>
           APMC PRICE

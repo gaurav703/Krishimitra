@@ -1,4 +1,5 @@
 const express = require('express')
+
 const bodyparser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
@@ -16,7 +17,7 @@ app.use(morgan('tiny'))
 // app.use('/public/uploads', express.static(__dirname + '/public/uploads'))
 // app.use(errorHandler)
 
-// Routers -----------------------------------------------------------------------------------
+// Routers ----------------------------------------------------------------------------------
 const categoriesRoutes = require('./routers/categories')
 const productRouter = require('./routers/products')
 // const usersRoutes = require('./routers/users')
@@ -27,7 +28,7 @@ app.use(`${api}/products`, productRouter)
 // app.use(`${api}/users`, usersRoutes)
 app.use(`${api}/orders`, ordersRoutes)
 
-// Database -----------------------------------------------------------------------------------
+// Database ----------------------------------------------------------------------------------
 mongoose
     .connect(process.env.CONNECTION_STRING, {
         useNewUrlParser: true,
