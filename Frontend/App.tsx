@@ -15,6 +15,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Image,
 } from 'react-native';
 import APMC_screen from './src/screens/APMC/APMC_screen';
 import Home from './src/screens/Home/Home';

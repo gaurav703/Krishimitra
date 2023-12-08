@@ -94,9 +94,11 @@ export default function profile() {
         </Text>
       </View>
       <ScrollView
-        style={{
-          marginBottom: 50,
-        }}>
+        style={
+          {
+            // marginBottom: 50,
+          }
+        }>
         <View
           style={{
             display: 'flex',
