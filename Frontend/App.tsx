@@ -1,163 +1,126 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Image,
-} from 'react-native';
-import APMC_screen from './src/screens/APMC/APMC_screen';
-import Home from './src/screens/Home/Home';
-
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {StatusBar, View, Text, StyleSheet} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Ecommerce from './src/screens/Ecommerce/ecommerce';
-import profile from './src/screens/Profile/profile';
+// Define types for the navigation
+type RootTabParamList = {
+  Weather: undefined;
+  Market: undefined;
+  Schemes: undefined;
+  Profile: undefined;
+};
 
-const Stack = createNativeStackNavigator();
+// Create placeholder screens
+const WeatherScreen: React.FC = () => (
+  <View style={styles.screen}>
+    <Text style={styles.screenTitle}>Weather & Alerts</Text>
+    <Text>Weather information will appear here</Text>
+  </View>
+);
 
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
+const MarketScreen: React.FC = () => (
+  <View style={styles.screen}>
+    <Text style={styles.screenTitle}>Market Prices</Text>
+    <Text>Mandi prices and trends will appear here</Text>
+  </View>
+);
 
-// type SectionProps = PropsWithChildren<{
-//   title: string;
-// }>;
+const SchemesScreen: React.FC = () => (
+  <View style={styles.screen}>
+    <Text style={styles.screenTitle}>Government Schemes</Text>
+    <Text>Subsidies and schemes information will appear here</Text>
+  </View>
+);
 
-// function Section({children, title}: SectionProps): JSX.Element {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// }
+const ProfileScreen: React.FC = () => (
+  <View style={styles.screen}>
+    <Text style={styles.screenTitle}>Profile</Text>
+    <Text>User profile and settings will appear here</Text>
+  </View>
+);
 
-function AppTabsNavigation(): JSX.Element {
-  const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootTabParamList>();
 
-  return (
-    <Tab.Navigator
-      activeColor="#3c9764"
-      inactiveColor="#000"
-      barStyle={{
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-      }}>
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{
-          tabBarLabel: 'Home',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="APMC"
-        component={APMC_screen}
-        options={{
-          title: 'APMC',
-          tabBarLabel: 'APMC',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="bell" size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="E-commerce"
-        component={Ecommerce}
-        options={{
-          title: 'E-commerce',
-          tabBarLabel: 'E-commerce',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Gov Schemes"
-        component={profile}
-        options={{
-          tabBarLabel: 'Gov Schemes',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="account" size={26} />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
-const styles = StyleSheet.create({
-  main_cont: {
-    backgroundColor: '#fff',
-    flex: 1,
-  },
-  text: {
-    color: '#000',
-  },
-
-  // sectionContainer: {
-  //   marginTop: 32,
-  //   paddingHorizontal: 24,
-  // },
-  // sectionTitle: {
-  //   fontSize: 24,
-  //   fontWeight: '600',
-  // },
-  // sectionDescription: {
-  //   marginTop: 8,
-  //   fontSize: 18,
-  //   fontWeight: '400',
-  // },
-  // highlight: {
-  //   fontWeight: '700',
-  // },
-});
-
-const App = () => {
+const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <AppTabsNavigation />
+      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName: string = 'help';
+
+            if (route.name === 'Weather') {
+              iconName = focused ? 'partly-sunny' : 'partly-sunny-outline';
+            } else if (route.name === 'Market') {
+              iconName = focused ? 'stats-chart' : 'stats-chart-outline';
+            } else if (route.name === 'Schemes') {
+              iconName = focused ? 'document-text' : 'document-text-outline';
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'person' : 'person-outline';
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: '#2e7d32',
+          tabBarInactiveTintColor: 'gray',
+          tabBarStyle: {
+            backgroundColor: 'white',
+            borderTopWidth: 1,
+            borderTopColor: '#f0f0f0',
+            height: 60,
+            paddingBottom: 10,
+            paddingTop: 5,
+          },
+          headerStyle: {
+            backgroundColor: '#2e7d32',
+          },
+          headerTintColor: 'white',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        })}>
+        <Tab.Screen 
+          name="Weather" 
+          component={WeatherScreen}
+          options={{title: 'Weather & Alerts'}}
+        />
+        <Tab.Screen 
+          name="Market" 
+          component={MarketScreen}
+          options={{title: 'Market Prices'}}
+        />
+        <Tab.Screen 
+          name="Schemes" 
+          component={SchemesScreen}
+          options={{title: 'Govt Schemes'}}
+        />
+        <Tab.Screen 
+          name="Profile" 
+          component={ProfileScreen}
+          options={{title: 'Profile'}}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
+    padding: 20,
+  },
+  screenTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#2e7d32',
+    marginBottom: 10,
+  },
+});
 
 export default App;
